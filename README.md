@@ -3,7 +3,7 @@
 
 # React Native Mqtt
 
-This package is a wrapper around the javascript implementation of the [paho mqtt client library](https://eclipse.org/paho/clients/js/) to provide drop in compatibility with react native. If you happen to be running your own mqtt broker, it must support websockets for a connection to be possible.
+This package is a wrapper around the [javascript implementation](https://www.npmjs.com/package/paho.mqtt.js) of the [paho mqtt client library](https://eclipse.org/paho/clients/js/) to provide drop in compatibility with react native. If you happen to be running your own mqtt broker, it must support websockets for a connection to be possible.
 
 ## Install
 
@@ -32,7 +32,11 @@ init({
 
 function onConnect() {
   console.log("onConnect");
-}
+  client.subscribe("/World");
+  message = new Paho.MQTT.Message("Hello");
+  message.destinationName = "/World";
+  client.send(message);
+};
 
 function onConnectionLost(responseObject) {
   if (responseObject.errorCode !== 0) {
